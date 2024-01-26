@@ -18,7 +18,7 @@ export default function TaskForm() {
     const {
       data: { user },
     } = await supabase.auth.getUser();
-    console.log(user);
+    //console.log(user);
     return user;
   };
 
@@ -34,7 +34,7 @@ export default function TaskForm() {
   };
 
   const onFinish = async (values: any) => {
-    console.log("success", values.taskname, values.taskstatus);
+    //console.log("success", values.taskname, values.taskstatus);
     const userID = await getUser();
     addTask(values, userID);
   };
@@ -58,33 +58,48 @@ export default function TaskForm() {
   };
 
   return (
-    <Form
-      name="basic"
-      labelCol={{ span: 8 }}
-      wrapperCol={{ span: 16 }}
-      style={{ maxWidth: 600 }}
-      initialValues={{ remember: true }}
-      onFinish={onFinish}
-      onFinishFailed={onFinishFailed}
-      autoComplete="off"
-    >
-      <Form.Item<FieldType>
-        label="TaskName"
-        name="taskname"
-        rules={[{ required: true, message: "Type your task here..." }]}
-      >
-        <Input />
-      </Form.Item>
+    <div className="flex justify-center items-center min-w-96">
+      <div className="w-96 p-6 rounded-sm">
+        <Form
+          name="basic"
+          labelCol={{ span: 8 }}
+          wrapperCol={{ span: 16 }}
+          style={{ maxWidth: "600", textAlign: "center" }}
+          onFinish={onFinish}
+          onFinishFailed={onFinishFailed}
+          autoComplete="off"
+          className=""
+        >
+          <Form.Item<FieldType>
+            label="Task Name"
+            name="taskname"
+            rules={[{ required: true, message: "Have you entered the task?" }]}
+          >
+            <Input placeholder="Enter your task" className="block w-full p-2" />
+          </Form.Item>
 
-      <Form.Item<FieldType>
-        label="TaskStatus"
-        name="taskstatus"
-        rules={[{ required: true, message: "Is your task completed?" }]}
-      >
-        <Input />
-      </Form.Item>
-      {/* dont forget htmlType */}
-      <Button htmlType="submit">Add</Button>
-    </Form>
+          <Form.Item<FieldType>
+            label="Task Status"
+            name="taskstatus"
+            rules={[{ required: true, message: "Is your task completed?" }]}
+          >
+            <Input
+              placeholder="Enter the status of your task"
+              className="block p-2"
+            />
+          </Form.Item>
+          {/* dont forget htmlType */}
+          <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
+            <Button
+              block
+              htmlType="submit"
+              className="text-white bg-blue-700 hover:bg-white text-center rounded-3xl"
+            >
+              Add
+            </Button>
+          </Form.Item>
+        </Form>
+      </div>
+    </div>
   );
 }

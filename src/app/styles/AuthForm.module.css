@@ -1,0 +1,19 @@
+/* AuthForm.module.css */
+.centerText {
+  text-align: center;
+}
+
+.textWhite {
+  color: white;
+}
+
+.linkButton {
+  color: blue; /* Customize the color as needed */
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.formStyle {
+  border: "1px solid";
+  padding: "2rem";
+}

@@ -1,11 +1,14 @@
 "use client";
 
 import TaskForm from "../components/TaskForm";
-import { Button } from "antd";
+import { Button, Layout, List, Menu } from "antd";
 import Link from "next/link";
 import { supabase } from "../../../supabase/supabase.js";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import { Content, Header } from "antd/es/layout/layout";
+import Sider from "antd/es/layout/Sider";
+import styles from "../styles/todoPage.module.css";
 
 interface Task {
   id: number;
@@ -45,27 +48,42 @@ export default function Page() {
   }, [tasks]);
 
   return (
-    <div>
-      <div>
-        <Button htmlType="submit" onClick={handleSignOut}>
+    <Layout>
+      <Header style={{}} className="styles.header">
+        <Button
+          htmlType="submit"
+          onClick={handleSignOut}
+          style={{
+            color: "white",
+            position: "absolute",
+            right: "3em",
+            top: "1em",
+          }}
+        >
           Sign out
         </Button>
-        <h1>My Todo List</h1>
-        <div>
-          <TaskForm />
-          <div>
-            {/* Display tasks */}
-            <h1>Your Tasks</h1>
-            <ul>
-              {tasks.map((task) => (
-                <li key={task.id}>
-                  {task.taskname} - {task.taskStatus}
-                </li>
-              ))}
-            </ul>
-          </div>
+      </Header>
+      <Content className="">
+        <h1 className="text-4xl p-5 text-center">My Todo List</h1>
+
+        <TaskForm />
+        <div className="p-7">
+          {/* Display tasks */}
+          <h1 className="text-3xl">Your Tasks</h1>
+          <List
+            itemLayout="horizontal"
+            dataSource={tasks}
+            renderItem={(item, index) => (
+              <List.Item>
+                <List.Item.Meta
+                  title={item.taskname}
+                  description={item.taskStatus}
+                />
+              </List.Item>
+            )}
+          />
         </div>
-      </div>
-    </div>
+      </Content>
+    </Layout>
   );
 }
